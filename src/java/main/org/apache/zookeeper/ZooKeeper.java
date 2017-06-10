@@ -1436,7 +1436,7 @@ public class ZooKeeper implements AutoCloseable {
         request.setData(data);
         request.setFlags(createMode.toFlag());
         request.setPath(serverPath);
-        if (acl != null && acl.size() == 0) {
+        if (acl == null || acl.size() == 0) {
             throw new KeeperException.InvalidACLException();
         }
         request.setAcl(acl);
@@ -1535,7 +1535,7 @@ public class ZooKeeper implements AutoCloseable {
         RequestHeader h = new RequestHeader();
         setCreateHeader(createMode, h);
         Create2Response response = new Create2Response();
-        if (acl != null && acl.size() == 0) {
+        if (acl == null || acl.size() == 0) {
             throw new KeeperException.InvalidACLException();
         }
         Record record = makeCreateRecord(createMode, serverPath, data, acl, ttl);
@@ -2377,7 +2377,7 @@ public class ZooKeeper implements AutoCloseable {
         h.setType(ZooDefs.OpCode.setACL);
         SetACLRequest request = new SetACLRequest();
         request.setPath(serverPath);
-        if (acl != null && acl.size() == 0) {
+        if (acl == null || acl.size() == 0) {
             throw new KeeperException.InvalidACLException(clientPath);
         }
         request.setAcl(acl);
